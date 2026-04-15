@@ -1,0 +1,461 @@
+/*
+ * CRT Terminal Theme for Quarto RevealJS
+ * Retro-Futuristic Phosphor Green Terminal Aesthetic
+ * ================================================
+ * Primary accent : Phosphor Green  #00ff41
+ * Background     : Near-black      #0a0a0a
+ * Display font   : VT323 (Google Fonts)
+ * Body font      : Share Tech Mono (Google Fonts)
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap');
+
+/*-- scss:defaults --*/
+
+$phosphor-green:       #00ff41 !default;
+$phosphor-green-dim:   #00c832 !default;
+$phosphor-green-dark:  #003b10 !default;
+$phosphor-green-faint: #004d1a !default;
+$amber:                #FFB000 !default;
+$cyan:                 #00FFFF !default;
+$bg-primary:           #0a0a0a !default;
+$bg-slide:             #111111 !default;
+$bg-code:              #050505 !default;
+$text-dim:             #4a7a4a !default;
+
+$font-family-display:  'VT323', 'Courier New', monospace !default;
+$font-family-body:     'Share Tech Mono', 'IBM Plex Mono', 'Courier New', monospace !default;
+$font-family-code:     'IBM Plex Mono', 'Courier New', monospace !default;
+
+// RevealJS variable overrides
+$backgroundColor:       $bg-primary;
+$mainColor:             $phosphor-green;
+$headingColor:          $phosphor-green;
+$linkColor:             $cyan;
+$linkColorHover:        lighten($cyan, 12%);
+$mainFontSize:          26px;
+$mainFont:              $font-family-body;
+$headingFont:           $font-family-display;
+$headingTextShadow:     0 0 6px $phosphor-green, 0 0 14px rgba($phosphor-green, 0.5);
+$headingLetterSpacing:  0.04em;
+$headingTextTransform:  uppercase;
+$headingFontWeight:     400;
+$heading1Size:          1.7em;
+$heading2Size:          1.3em;
+$heading3Size:          1.05em;
+$heading4Size:          0.9em;
+$codeFont:              $font-family-code;
+
+
+/*-- scss:rules --*/
+
+// ═══════════════════════════════════════════════
+// KEYFRAMES
+// ═══════════════════════════════════════════════
+
+@keyframes glow-pulse {
+  0%, 100% { text-shadow: 0 0 4px $phosphor-green, 0 0 10px rgba($phosphor-green, 0.5); }
+  50%      { text-shadow: 0 0 6px $phosphor-green, 0 0 16px rgba($phosphor-green, 0.7); }
+}
+
+// ═══════════════════════════════════════════════
+// BASE STYLES
+// ═══════════════════════════════════════════════
+
+.reveal-viewport {
+  background: $bg-primary;
+}
+
+.reveal {
+  font-family: $font-family-body;
+  color: $phosphor-green;
+}
+
+// ═══════════════════════════════════════════════
+// SLIDE SURFACES
+// DO NOT touch position/display — RevealJS manages those
+// ═══════════════════════════════════════════════
+
+.reveal .slides section {
+  background-color: $bg-slide;
+  // CRT scanline effect via background-image (no pseudo-elements!)
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.08) 2px,
+      rgba(0, 0, 0, 0.08) 4px
+    ),
+    // Vignette via radial gradient on the background itself
+    radial-gradient(
+      ellipse at 50% 50%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.25) 85%,
+      rgba(0, 0, 0, 0.45) 100%
+    );
+  text-align: left;
+  padding: 0.6em !important;
+  box-sizing: border-box;
+}
+
+// ═══════════════════════════════════════════════
+// TYPOGRAPHY — no em compounding
+// ═══════════════════════════════════════════════
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+  font-family: $font-family-display;
+  color: $phosphor-green;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  animation: glow-pulse 5s ease-in-out infinite;
+  margin-bottom: 0.3em;
+}
+
+.reveal p,
+.reveal li {
+  font-family: $font-family-body;
+  font-size: 0.75em;
+  line-height: 1.55;
+  color: $phosphor-green;
+  text-shadow: 0 0 2px rgba($phosphor-green, 0.3);
+}
+
+// CRITICAL: spans, td, th inherit — no compounding
+.reveal span { font-size: inherit; color: inherit; }
+.reveal td, .reveal th { font-size: inherit; }
+.reveal strong { color: $phosphor-green; }
+
+// ═══════════════════════════════════════════════
+// TITLE SLIDE STYLING
+// ═══════════════════════════════════════════════
+
+.reveal .title-slide {
+  text-align: center;
+}
+
+// Hide Quarto auto-generated title block
+.reveal .quarto-title-block {
+  display: none !important;
+}
+
+// ═══════════════════════════════════════════════
+// LINKS
+// ═══════════════════════════════════════════════
+
+.reveal a {
+  color: $cyan;
+  text-decoration: underline;
+  text-shadow: 0 0 4px rgba($cyan, 0.5);
+}
+
+// ═══════════════════════════════════════════════
+// CODE BLOCKS
+// ═══════════════════════════════════════════════
+
+.reveal pre {
+  background: $bg-code;
+  border: 1px solid $phosphor-green-faint;
+  border-radius: 2px;
+  padding: 0.6em 0.8em;
+  margin: 0.5em 0;
+  box-shadow: 0 0 8px rgba($phosphor-green, 0.1);
+}
+
+.reveal pre code,
+.reveal code {
+  font-family: $font-family-code;
+  font-size: 0.75em;
+  color: $phosphor-green;
+  background: transparent;
+  text-shadow: 0 0 2px rgba($phosphor-green, 0.3);
+}
+
+.reveal :not(pre) > code {
+  background: rgba($phosphor-green, 0.06);
+  border: 1px solid rgba($phosphor-green, 0.2);
+  border-radius: 2px;
+  padding: 0.1em 0.3em;
+  font-size: 0.85em;
+}
+
+// Syntax highlight colors
+.hljs-keyword, .hljs-selector-tag { color: $cyan; }
+.hljs-string, .hljs-attr { color: $amber; }
+.hljs-number, .hljs-literal { color: lighten($phosphor-green, 15%); }
+.hljs-comment { color: $text-dim; font-style: italic; }
+.hljs-function, .hljs-title { color: $phosphor-green; font-weight: 600; }
+
+// ═══════════════════════════════════════════════
+// TABLES
+// ═══════════════════════════════════════════════
+
+.reveal table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.6em;
+}
+
+.reveal table thead th {
+  background: $phosphor-green-dark;
+  color: $phosphor-green;
+  border: 1px solid $phosphor-green-faint;
+  padding: 0.35em 0.5em;
+  font-family: $font-family-display;
+  letter-spacing: 0.05em;
+}
+
+.reveal table tbody td {
+  border: 1px solid rgba($phosphor-green, 0.2);
+  padding: 0.3em 0.5em;
+  color: $phosphor-green;
+}
+
+.reveal table tbody tr:nth-child(even) {
+  background: darken($bg-slide, 2%);
+}
+
+// ═══════════════════════════════════════════════
+// BLOCKQUOTES — terminal style
+// ═══════════════════════════════════════════════
+
+.reveal blockquote {
+  background: rgba($phosphor-green, 0.03);
+  border: none;
+  border-left: 3px solid $phosphor-green-dim;
+  padding: 0.5em 0.8em;
+  margin: 0.5em 0;
+  font-size: 0.72em;
+  color: $phosphor-green-dim;
+  font-style: normal;
+
+  p { display: inline; font-size: 1em; }
+}
+
+// ═══════════════════════════════════════════════
+// LISTS — terminal prefix style
+// ═══════════════════════════════════════════════
+
+.reveal ul {
+  list-style: none;
+  padding-left: 1em;
+  > li::before {
+    content: '> ';
+    font-family: $font-family-display;
+    color: $phosphor-green-dim;
+    margin-right: 0.2em;
+  }
+}
+
+.reveal ol {
+  padding-left: 1.3em;
+  > li::marker {
+    color: $phosphor-green-dim;
+    font-family: $font-family-display;
+  }
+}
+
+// ═══════════════════════════════════════════════
+// CONTROLS & PROGRESS
+// ═══════════════════════════════════════════════
+
+.reveal .controls { color: $phosphor-green; }
+.reveal .progress { background: rgba($phosphor-green, 0.08); height: 3px; }
+.reveal .progress span { background: $phosphor-green; box-shadow: 0 0 6px $phosphor-green; }
+.reveal .slide-number { font-family: $font-family-display; font-size: 0.5em; color: $text-dim; background: transparent; }
+
+// ═══════════════════════════════════════════════
+// LOGO — top right
+// ═══════════════════════════════════════════════
+
+.slide-logo {
+  height: 50px !important;
+  width: auto !important;
+  opacity: 0.85;
+}
+
+// ═══════════════════════════════════════════════
+// HIGHLIGHT / KEYWORD CLASSES
+// ═══════════════════════════════════════════════
+
+.keyword, .highlight {
+  background: $phosphor-green;
+  color: $bg-primary !important;
+  padding: 0.08em 0.3em;
+  border-radius: 1px;
+  font-family: $font-family-display;
+  font-size: 1em;
+  text-shadow: none !important;
+  box-shadow: 0 0 6px rgba($phosphor-green, 0.5);
+}
+
+.highlight-amber {
+  background: $amber;
+  color: $bg-primary !important;
+  padding: 0.08em 0.3em;
+  border-radius: 1px;
+  font-family: $font-family-display;
+  text-shadow: none !important;
+  box-shadow: 0 0 6px rgba($amber, 0.5);
+}
+
+.highlight-cyan {
+  background: $cyan;
+  color: $bg-primary !important;
+  padding: 0.08em 0.3em;
+  border-radius: 1px;
+  font-family: $font-family-display;
+  text-shadow: none !important;
+  box-shadow: 0 0 6px rgba($cyan, 0.5);
+}
+
+// Fragment highlight
+.reveal .fragment.highlight-green.visible {
+  color: $bg-primary;
+  background: $phosphor-green;
+  text-shadow: none;
+  padding: 0.05em 0.2em;
+}
+
+// ═══════════════════════════════════════════════
+// IMAGE PLACEHOLDER
+// ═══════════════════════════════════════════════
+
+.image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  width: 100%;
+  border: 2px dashed rgba($phosphor-green, 0.35);
+  color: $text-dim;
+  font-family: $font-family-display;
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
+  background: rgba($phosphor-green, 0.02);
+
+  &::before { content: '[ INSERT IMAGE ]'; }
+  > * { display: none; }
+}
+
+.image-placeholder-sm {
+  @extend .image-placeholder;
+  min-height: 60px;
+}
+
+// ═══════════════════════════════════════════════
+// REFERENCE FOOTER (per-slide citations)
+// ═══════════════════════════════════════════════
+
+.ref-footer {
+  font-size: 0.32em;
+  color: $text-dim;
+  line-height: 1.3;
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  right: 0;
+  padding: 0 1.2em;
+  text-align: left;
+  font-family: $font-family-body;
+  opacity: 0.75;
+
+  p { font-size: inherit; margin: 0; }
+}
+
+// Reference list (for full references slide — in normal flow, not absolute)
+.ref-list {
+  font-size: 0.36em;
+  color: $text-dim;
+  line-height: 1.45;
+  text-align: left;
+  p { font-size: inherit; margin: 0.2em 0; }
+}
+
+// ═══════════════════════════════════════════════
+// TWO-COLUMN LAYOUT
+// ═══════════════════════════════════════════════
+
+.two-col {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8em 1.5em;
+  align-items: start;
+  width: 100%;
+}
+
+.col { min-width: 0; }
+
+// ═══════════════════════════════════════════════
+// TERMINAL WINDOW / TERMINAL OUTPUT
+// ═══════════════════════════════════════════════
+
+.terminal-window {
+  background: rgba($phosphor-green, 0.03);
+  border: 1px solid rgba($phosphor-green, 0.25);
+  border-left: 3px solid $phosphor-green-dim;
+  padding: 0.5em 0.7em;
+  margin: 0.3em 0;
+}
+
+.terminal-output,
+.reveal pre.terminal-output code {
+  font-family: $font-family-code;
+  font-size: 0.95em;
+}
+
+// ═══════════════════════════════════════════════
+// UTILITY CLASSES
+// ═══════════════════════════════════════════════
+
+.text-amber  { color: $amber !important; }
+.text-cyan   { color: $cyan !important; }
+.text-dim    { color: $text-dim !important; }
+
+.glow-strong {
+  text-shadow: 0 0 4px $phosphor-green, 0 0 12px $phosphor-green,
+               0 0 28px rgba($phosphor-green, 0.7), 0 0 50px rgba($phosphor-green, 0.4) !important;
+}
+
+.center-content {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.caption {
+  font-size: 0.5em;
+  color: $text-dim;
+  font-style: italic;
+}
+
+// Blinking cursor
+.cursor::after {
+  content: '█';
+  color: $phosphor-green;
+  animation: glow-pulse 1.2s step-end infinite;
+}
+
+// Horizontal rules
+.reveal hr {
+  border: none;
+  border-top: 1px solid rgba($phosphor-green, 0.2);
+  margin: 0.4em 0;
+}
+
+// Speaker notes (keep readable)
+.reveal aside.notes {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8em;
+  color: #c0c0c0;
+  background: #111;
+}
+
+// Footer bar
+.reveal .footer {
+  font-family: $font-family-body;
+  font-size: 0.45em;
+  color: $phosphor-green-dim;
+}
